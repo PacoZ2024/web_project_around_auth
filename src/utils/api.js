@@ -30,7 +30,7 @@ class Api {
 
   setUserInfo(data) {
     return fetch(`${this.baseUrl}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ name: data.name, about: data.about }),
     }).then((res) => {
@@ -43,7 +43,7 @@ class Api {
 
   addNewPlace(card) {
     return fetch(`${this.baseUrl}/cards/`, {
-      method: "POST",
+      method: 'POST',
       headers: this.headers,
       body: JSON.stringify({ name: card.name, link: card.link }),
     }).then((res) => {
@@ -56,7 +56,7 @@ class Api {
 
   isLiked(idCard) {
     return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: "PUT",
+      method: 'PUT',
       headers: this.headers,
       body: JSON.stringify({ isLiked: true }),
     }).then((res) => {
@@ -69,7 +69,7 @@ class Api {
 
   deleteLiked(idCard) {
     return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this.headers,
     }).then((res) => {
       if (res.ok) {
@@ -81,7 +81,7 @@ class Api {
 
   setUserAvatar(data) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ avatar: data.avatar }),
     }).then((res) => {
@@ -94,7 +94,7 @@ class Api {
 
   deleteCard(id) {
     return fetch(`${this.baseUrl}/cards/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this.headers,
     }).then((res) => {
       if (res.ok) {
@@ -106,10 +106,10 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  baseUrl: 'https://around-api.es.tripleten-services.com/v1',
   headers: {
-    authorization: "c7ddeb73-151f-41a7-9f67-d93995416067",
-    "Content-Type": "application/json",
+    authorization: 'c7ddeb73-151f-41a7-9f67-d93995416067',
+    'Content-Type': 'application/json',
   },
 });
 

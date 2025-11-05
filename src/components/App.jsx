@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import Header from "./Header/Header.jsx";
-import Main from "./Main/Main.jsx";
-import Footer from "./Footer/Footer.jsx";
-import { api } from "../utils/api.js";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import { useState, useEffect } from 'react';
+import Header from './Header/Header.jsx';
+import Main from './Main/Main.jsx';
+import Footer from './Footer/Footer.jsx';
+import { api } from '../utils/api.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 export default function App() {
   const [cards, setCards] = useState([]);
@@ -123,7 +123,7 @@ export default function App() {
         handleCardDelete,
       }}
     >
-      <div className="page">
+      <div className='page'>
         <Header />
         <Main
           onOpenPopup={handleOpenPopup}

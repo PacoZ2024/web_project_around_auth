@@ -1,9 +1,9 @@
-import { useState } from "react";
-import DeleteImageButton from "../../../../assets/images/Delete_button.svg";
-import LikeButton from "../../../../assets/images/Like.svg";
-import ImagePopup from "../Popup/image/ImagePopup.jsx";
-import WithConfirmation from "../Popup/form/WithConfirmation/WithConfirmation.jsx";
-import Popup from "../Popup/Popup.jsx";
+import { useState } from 'react';
+import DeleteImageButton from '../../../../assets/images/Delete_button.svg';
+import LikeButton from '../../../../assets/images/Like.svg';
+import ImagePopup from '../Popup/image/ImagePopup.jsx';
+import WithConfirmation from '../Popup/form/WithConfirmation/WithConfirmation.jsx';
+import Popup from '../Popup/Popup.jsx';
 
 export default function Card(props) {
   const [popup, setPopup] = useState(null);
@@ -28,10 +28,10 @@ export default function Card(props) {
   }
 
   return (
-    <div className="content__card">
-      <div className="content__image-card">
+    <div className='content__card'>
+      <div className='content__image-card'>
         <img
-          className="content__image"
+          className='content__image'
           src={link}
           alt={name}
           onClick={() => {
@@ -39,27 +39,27 @@ export default function Card(props) {
           }}
         />
       </div>
-      <div className="content__delete-button">
+      <div className='content__delete-button'>
         <img
-          className="content__delete-button-label"
+          className='content__delete-button-label'
           src={DeleteImageButton}
-          alt="Botón borrar imagen"
+          alt='Botón borrar imagen'
           onClick={() => {
             handleOpenPopup(confirmationDelete);
           }}
         />
       </div>
-      <div className="content__image-tag">
-        <p className="content__image-title">{name}</p>
-        <div className="content__like-button">
+      <div className='content__image-tag'>
+        <p className='content__image-title'>{name}</p>
+        <div className='content__like-button'>
           <img
             className={
               liked
-                ? "content__like-button-label-active"
-                : "content__like-button-label"
+                ? 'content__like-button-label-active'
+                : 'content__like-button-label'
             }
             src={LikeButton}
-            alt="Botón me gusta"
+            alt='Botón me gusta'
             onClick={() => {
               handleLikeClick();
             }}

@@ -1,13 +1,13 @@
-import LogoAround from "../../assets/images/Logo.svg";
+import LogoAround from '../../assets/images/Logo.svg';
 
 export default function Header() {
   return (
-    <header className="header">
-      <div className="header__line">
+    <header className='header'>
+      <div className='header__line'>
         <img
-          className="header__logo"
+          className='header__logo'
           src={LogoAround}
-          alt="Logo Around The U.S."
+          alt='Logo Around The U.S.'
         />
       </div>
     </header>
