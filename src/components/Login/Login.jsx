@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 export default function Login({ handleLogin }) {
@@ -17,26 +18,38 @@ export default function Login({ handleLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        id='email'
-        name='email'
-        type='email'
-        value={data.email}
-        onChange={handleChange}
-        placeholder='Correo electrónico'
-        required
-      />
-      <input
-        id='password'
-        name='password'
-        type='password'
-        value={data.password}
-        onChange={handleChange}
-        placeholder='Contraseña'
-        required
-      />
-      <button type='submit'>Iniciar sesión</button>
-    </form>
+    <main className='session'>
+      <form className='session__form' onSubmit={handleSubmit} noValidate>
+        <legend className='session__form_title'>Inicia sesión</legend>
+        <input
+          className='session__form_field session__form_field-email'
+          id='email'
+          name='email'
+          type='email'
+          value={data.email}
+          onChange={handleChange}
+          placeholder='Correo electrónico'
+          required
+        />
+        <span></span>
+        <input
+          className='session__form_field session__form_field-password'
+          id='password'
+          name='password'
+          type='password'
+          value={data.password}
+          onChange={handleChange}
+          placeholder='Contraseña'
+          required
+        />
+        <span></span>
+        <button className='session__form_button' type='submit'>
+          Inicia sesión
+        </button>
+        <Link to='/signup' className='session__form_link'>
+          ¿Aún no eres miembro? Regístrate aquí
+        </Link>
+      </form>
+    </main>
   );
 }

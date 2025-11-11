@@ -205,7 +205,11 @@ export default function App() {
           path='/signin'
           element={
             <ProtectedRoute anonymous>
-              <Login handleLogin={handleLogin} />
+              <div className='page'>
+                <Header />
+                <Login handleLogin={handleLogin} />
+                <Footer />
+              </div>
             </ProtectedRoute>
           }
         />
@@ -213,7 +217,11 @@ export default function App() {
           path='/signup'
           element={
             <ProtectedRoute anonymous>
-              <Register handleRegister={handleRegister} />
+              <div className='page'>
+                <Header />
+                <Register handleRegister={handleRegister} />
+                <Footer />
+              </div>
             </ProtectedRoute>
           }
         />

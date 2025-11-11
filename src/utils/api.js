@@ -1,86 +1,62 @@
-import { getToken } from './token.js';
-
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
   }
 
-  _getHeaders() {
-    const token = getToken();
-    return {
-      ...this._headers,
-      ...(token && { Authorization: `Bearer ${token}` }),
-    };
-  }
-
   _checkResponse(res) {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
   }
 
+  async _request(endpoint, method, body) {
+    return await fetch(`${this._baseUrl}${endpoint}`, {
+      method,
+      headers: this._headers,
+      body: JSON.stringify(body),
+    }).then((res) => this._checkResponse(res));
+  }
+
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards/`, {
-      headers: this._getHeaders,
-    }).then(this._checkResponse);
+    return this._request('cards');
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._getHeaders,
-    }).then(this._checkResponse);
+    return this._request('users/me');
   }
 
   setUserInfo(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._getHeaders,
-      body: JSON.stringify({ name: data.name, about: data.about }),
-    }).then(this._checkResponse);
+    return this._request('users/me', 'PATCH', {
+      name: data.name,
+      about: data.about,
+    });
   }
 
   addNewPlace(card) {
-    return fetch(`${this._baseUrl}/cards/`, {
-      method: 'POST',
-      headers: this._getHeaders,
-      body: JSON.stringify({ name: card.name, link: card.link }),
-    }).then(this._checkResponse);
+    return this._request('cards', 'POST', { name: card.name, link: card.link });
   }
 
   isLiked(idCard) {
-    return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
-      method: 'PUT',
-      headers: this._getHeaders,
-      body: JSON.stringify({ isLiked: true }),
-    }).then(this._checkResponse);
+    return this._request(`cards/${idCard}/likes`, 'PUT', { isLiked: true });
   }
 
   deleteLiked(idCard) {
-    return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
-      method: 'DELETE',
-      headers: this._getHeaders,
-    }).then(this._checkResponse);
+    return this._request(`cards/${idCard}/likes`, 'DELETE');
   }
 
   setUserAvatar(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: this._getHeaders,
-      body: JSON.stringify({ avatar: data.avatar }),
-    }).then(this._checkResponse);
+    return this._request('users/me/avatar', 'PATCH', { avatar: data.avatar });
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._getHeaders,
-    }).then(this._checkResponse);
+    return this._request(`cards/${id}`, 'DELETE');
   }
 }
 
 const api = new Api({
-  baseUrl: 'https://se-register-api.en.tripleten-services.com/v1',
+  baseUrl: 'https://around-api.es.tripleten-services.com/v1/',
   headers: {
     'Content-Type': 'application/json',
+    Authorization: 'c7ddeb73-151f-41a7-9f67-d93995416067',
   },
 });
 
