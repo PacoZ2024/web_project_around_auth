@@ -31,7 +31,6 @@ export default function Login({ handleLogin }) {
           placeholder='Correo electrónico'
           required
         />
-        <span></span>
         <input
           className='session__form_field session__form_field-password'
           id='password'
@@ -42,7 +41,6 @@ export default function Login({ handleLogin }) {
           placeholder='Contraseña'
           required
         />
-        <span></span>
         <button className='session__form_button' type='submit'>
           Inicia sesión
         </button>

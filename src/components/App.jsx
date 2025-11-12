@@ -156,9 +156,9 @@ export default function App() {
     (async () => {
       await auth
         .checkToken(jwt)
-        .then(({ email }) => {
+        .then(({ data }) => {
           setIsLoggedIn(true);
-          setUserEmail(email);
+          setUserEmail(data.email);
         })
         .catch((err) => {
           removeToken();
@@ -206,7 +206,7 @@ export default function App() {
           element={
             <ProtectedRoute anonymous>
               <div className='page'>
-                <Header />
+                <Header link={'/signup'} text={'Registrate'} />
                 <Login handleLogin={handleLogin} />
                 <Footer />
               </div>
@@ -218,7 +218,7 @@ export default function App() {
           element={
             <ProtectedRoute anonymous>
               <div className='page'>
-                <Header />
+                <Header link={'/signin'} text={'Iniciar sesión'} />
                 <Register handleRegister={handleRegister} />
                 <Footer />
               </div>
