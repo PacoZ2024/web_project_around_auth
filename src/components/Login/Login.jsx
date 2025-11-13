@@ -1,8 +1,51 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useContext } from 'react';
 
-export default function Login({ handleLogin }) {
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+
+import Popup from '../Main/components/Popup/Popup.jsx';
+import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
+import * as auth from '../../utils/auth.js';
+import { setToken } from '../../utils/token.js';
+
+export default function Login({
+  popup,
+  onOpenPopup,
+  onClosePopup,
+  setUserEmail,
+}) {
   const [data, setData] = useState({ email: '', password: '' });
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  async function handleLogin({ email, password }) {
+    if (!email || !password) {
+      return;
+    }
+
+    await auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          setToken(data.token);
+          setUserEmail(email);
+          setIsLoggedIn(true);
+          const redirectPath = location.state?.from?.pathname || '/';
+          navigate(redirectPath);
+        }
+      })
+      .catch(() => {
+        onOpenPopup({
+          children: (
+            <InfoTooltip
+              isSuccess={false}
+              message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
+            />
+          ),
+        });
+      });
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -48,6 +91,7 @@ export default function Login({ handleLogin }) {
           ¿Aún no eres miembro? Regístrate aquí
         </Link>
       </form>
+      {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
     </main>
   );
 }

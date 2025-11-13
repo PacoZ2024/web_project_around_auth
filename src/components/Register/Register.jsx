@@ -4,8 +4,14 @@ import Popup from '../Main/components/Popup/Popup';
 import * as auth from '../../utils/auth.js';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
-export default function Register({ popup, onOpenPopup, onClosePopup }) {
+export default function Register({
+  popup,
+  onOpenPopup,
+  onClosePopup,
+  onClosePopupRegister,
+}) {
   const [data, setData] = useState({ email: '', password: '' });
+  const [isSuccess, setIsSuccess] = useState(false);
 
   function infoTooltip(isSuccess, message) {
     return {
@@ -17,12 +23,14 @@ export default function Register({ popup, onOpenPopup, onClosePopup }) {
     await auth
       .register(email, password)
       .then(() => {
+        setIsSuccess(true);
         onOpenPopup(infoTooltip(true, '¡Correcto! Ya estás registrado.'));
         setTimeout(() => {
-          onClosePopup();
+          onClosePopupRegister();
         }, 5000);
       })
       .catch(() => {
+        setIsSuccess(false);
         onOpenPopup(
           infoTooltip(
             false,
@@ -76,7 +84,11 @@ export default function Register({ popup, onOpenPopup, onClosePopup }) {
           ¿Ya eres miembro? Inicia sesión aquí
         </Link>
       </form>
-      {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
+      {popup && (
+        <Popup onClose={isSuccess ? onClosePopupRegister : onClosePopup}>
+          {popup.children}
+        </Popup>
+      )}
     </main>
   );
 }

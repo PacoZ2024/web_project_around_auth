@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -17,7 +11,7 @@ import Register from './Register/Register.jsx';
 import Login from './Login/Login.jsx';
 
 import { api } from '../utils/api.js';
-import { getToken, removeToken, setToken } from '../utils/token.js';
+import { getToken, removeToken } from '../utils/token.js';
 import * as auth from '../utils/auth.js';
 
 export default function App() {
@@ -28,26 +22,6 @@ export default function App() {
   const [userEmail, setUserEmail] = useState('');
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  async function handleLogin({ email, password }) {
-    if (!email || !password) {
-      return;
-    }
-
-    await auth
-      .authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          setToken(data.token);
-          setUserEmail(email);
-          setIsLoggedIn(true);
-          const redirectPath = location.state?.from?.pathname || '/';
-          navigate(redirectPath);
-        }
-      })
-      .catch(console.error);
-  }
 
   function handleSignOut() {
     removeToken();
@@ -189,6 +163,7 @@ export default function App() {
     <CurrentUserContext.Provider
       value={{
         isLoggedIn,
+        setIsLoggedIn,
         currentUser,
         handleUpdateUser,
         handleUpdateAvatar,
@@ -203,7 +178,12 @@ export default function App() {
             <ProtectedRoute anonymous>
               <div className='page'>
                 <Header link={'/signup'} text={'Registrate'} />
-                <Login handleLogin={handleLogin} />
+                <Login
+                  onOpenPopup={handleOpenPopup}
+                  onClosePopup={handleClosePopup}
+                  popup={popup}
+                  setUserEmail={setUserEmail}
+                />
                 <Footer />
               </div>
             </ProtectedRoute>
@@ -217,7 +197,8 @@ export default function App() {
                 <Header link={'/signin'} text={'Iniciar sesión'} />
                 <Register
                   onOpenPopup={handleOpenPopup}
-                  onClosePopup={handleClosePopupRegister}
+                  onClosePopupRegister={handleClosePopupRegister}
+                  onClosePopup={handleClosePopup}
                   popup={popup}
                 />
                 <Footer />
