@@ -1,8 +1,36 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import Popup from '../Main/components/Popup/Popup';
+import * as auth from '../../utils/auth.js';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
-export default function Register({ handleRegister }) {
+export default function Register({ popup, onOpenPopup, onClosePopup }) {
   const [data, setData] = useState({ email: '', password: '' });
+
+  function infoTooltip(isSuccess, message) {
+    return {
+      children: <InfoTooltip isSuccess={isSuccess} message={message} />,
+    };
+  }
+
+  async function handleRegister({ email, password }) {
+    await auth
+      .register(email, password)
+      .then(() => {
+        onOpenPopup(infoTooltip(true, '¡Correcto! Ya estás registrado.'));
+        setTimeout(() => {
+          onClosePopup();
+        }, 5000);
+      })
+      .catch(() => {
+        onOpenPopup(
+          infoTooltip(
+            false,
+            'Uy, algo salió mal. Por favor, inténtalo de nuevo.'
+          )
+        );
+      });
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -48,6 +76,7 @@ export default function Register({ handleRegister }) {
           ¿Ya eres miembro? Inicia sesión aquí
         </Link>
       </form>
+      {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
     </main>
   );
 }

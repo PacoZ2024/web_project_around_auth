@@ -26,7 +26,7 @@ export default function Header({ link, text, userEmail, onSignOut }) {
           alt='Logo Around The U.S.'
         />
         <div className='header__data'>
-          <h3 className='header__email'>{userEmail}</h3>
+          <p className='header__email'>{userEmail}</p>
           <Link className='header__link_close-session' onClick={onSignOut}>
             Cerrar sesión
           </Link>

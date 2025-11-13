@@ -41,6 +41,30 @@
   overflow: hidden;
 }
 
+.popup__icon {
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+}
+
+.popup__message {
+  max-width: 358px;
+  margin: 0;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+.popup__content-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
 @media screen and (max-width: 896px) {
   .popup__image {
     max-width: 544px;

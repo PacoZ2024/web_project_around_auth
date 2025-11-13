@@ -30,15 +30,6 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  async function handleRegister({ email, password }) {
-    await auth
-      .register(email, password)
-      .then(() => {
-        navigate('/signin');
-      })
-      .catch(console.error);
-  }
-
   async function handleLogin({ email, password }) {
     if (!email || !password) {
       return;
@@ -71,6 +62,11 @@ export default function App() {
 
   function handleClosePopup() {
     setPopup(null);
+  }
+
+  function handleClosePopupRegister() {
+    setPopup(null);
+    navigate('/signin');
   }
 
   async function handleUpdateUser(data) {
@@ -219,7 +215,11 @@ export default function App() {
             <ProtectedRoute anonymous>
               <div className='page'>
                 <Header link={'/signin'} text={'Iniciar sesión'} />
-                <Register handleRegister={handleRegister} />
+                <Register
+                  onOpenPopup={handleOpenPopup}
+                  onClosePopup={handleClosePopupRegister}
+                  popup={popup}
+                />
                 <Footer />
               </div>
             </ProtectedRoute>
