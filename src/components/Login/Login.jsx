@@ -57,6 +57,15 @@ export default function Login({
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!data.email || !data.password)
+      onOpenPopup({
+        children: (
+          <InfoTooltip
+            isSuccess={false}
+            message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
+          />
+        ),
+      });
     handleLogin(data);
   }
 
