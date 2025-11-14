@@ -21,7 +21,6 @@
 .session__form_field {
   background-color: #000000;
   width: 358px;
-  height: 27px;
   border: none;
   border-bottom: 2px solid rgba(204, 204, 204, 1);
   font-weight: 500;
@@ -66,4 +65,44 @@
   font-size: 14px;
   line-height: 100%;
   text-align: center;
+}
+
+@media screen and (max-width: 450px) {
+  .session {
+    padding-top: 0px;
+  }
+
+  .session__form {
+    max-width: 260px;
+  }
+
+  .session__form_title {
+    padding-bottom: 40px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .session__form_field {
+    max-width: 260px;
+    font-weight: 400;
+    line-height: 17px;
+  }
+
+  .session__form_field-password {
+    margin: 0 0 173px;
+  }
+
+  .session__form_button {
+    max-width: 260px;
+    height: 46px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .session__form_link {
+    margin-bottom: 42px;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }
