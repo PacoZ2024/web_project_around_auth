@@ -1,14 +1,16 @@
-import { useState } from 'react';
 import { Squash as Hamburger } from 'hamburger-react';
 import { Link } from 'react-router-dom';
 
-export default function HamburgerMenu({ userEmail, onSignOut }) {
-  const [isOpen, setOpen] = useState(false);
-
+export default function HamburgerMenu({
+  userEmail,
+  onSignOut,
+  toggledIsOpen,
+  setToggledIsOpen,
+}) {
   return (
     <div className='menu-container'>
-      <Hamburger size='24' toggled={isOpen} toggle={setOpen} />
-      {isOpen && (
+      <Hamburger size='24' toggled={toggledIsOpen} toggle={setToggledIsOpen} />
+      {toggledIsOpen && (
         <ul className='menu-list'>
           <li className='menu-items'>
             <p className='menu-item-email'>{userEmail}</p>

@@ -4,6 +4,10 @@
   padding: 45px 0 40px;
 }
 
+.header-toggled-open {
+  display: none;
+}
+
 .header__line {
   display: flex;
   justify-content: space-between;
@@ -80,6 +84,7 @@
   .header {
     max-width: 320px;
     padding: 28px 0 42px;
+    border-top: 1px solid rgba(54, 54, 54, 0.7);
   }
 
   .header__line {
@@ -94,6 +99,12 @@
 
   .header__data {
     display: none;
+  }
+
+  .header-toggled-open {
+    display: block;
+    max-width: 581px;
+    height: 142px;
   }
 }
 
