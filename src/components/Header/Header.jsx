@@ -11,9 +11,11 @@ export default function Header({ link, text, userEmail, onSignOut }) {
             src={LogoAround}
             alt='Logo Around The U.S.'
           />
-          <Link className='header__link' to={link}>
-            {text}
-          </Link>
+          <div className='header__content_link'>
+            <Link className='header__link' to={link}>
+              {text}
+            </Link>
+          </div>
         </div>
       </header>
     );
@@ -27,9 +29,11 @@ export default function Header({ link, text, userEmail, onSignOut }) {
         />
         <div className='header__data'>
           <p className='header__email'>{userEmail}</p>
-          <Link className='header__link_close-session' onClick={onSignOut}>
-            Cerrar sesión
-          </Link>
+          <div className='header__content_link'>
+            <Link className='header__link_close-session' onClick={onSignOut}>
+              Cerrar sesión
+            </Link>
+          </div>
         </div>
       </div>
     </header>

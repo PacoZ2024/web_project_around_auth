@@ -20,8 +20,11 @@
   padding-left: 30px;
 }
 
-.header__link {
+.header__content_link {
   padding-right: 30px;
+}
+
+.header__link {
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
@@ -39,12 +42,16 @@
 }
 
 .header__email {
+  max-width: 500px;
   margin: 0;
   padding-right: 23px;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
   color: #ffffff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .header__link_close-session {
@@ -87,6 +94,5 @@
   .header__link {
     font-size: 14px;
     line-height: 17px;
-    padding-right: 30px;
   }
 }
