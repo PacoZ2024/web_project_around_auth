@@ -96,9 +96,11 @@ export default function Login({
         <button className='session__form_button' type='submit'>
           Inicia sesión
         </button>
-        <Link to='/signup' className='session__form_link'>
-          ¿Aún no eres miembro? Regístrate aquí
-        </Link>
+        <div className='session__content_form_link'>
+          <Link to='/signup' className='session__form_link'>
+            ¿Aún no eres miembro? Regístrate aquí
+          </Link>
+        </div>
       </form>
       {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
     </main>

@@ -80,9 +80,11 @@ export default function Register({
         <button className='session__form_button' type='submit'>
           Regístrate
         </button>
-        <Link to='/signin' className='session__form_link'>
-          ¿Ya eres miembro? Inicia sesión aquí
-        </Link>
+        <div className='session__content_form_link'>
+          <Link to='/signin' className='session__form_link'>
+            ¿Ya eres miembro? Inicia sesión aquí
+          </Link>
+        </div>
       </form>
       {popup && (
         <Popup onClose={isSuccess ? onClosePopupRegister : onClosePopup}>

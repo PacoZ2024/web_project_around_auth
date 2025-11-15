@@ -56,15 +56,28 @@
   text-align: center;
 }
 
+.session__form_button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.session__content_form_link {
+  padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+}
+
 .session__form_link {
   color: #ffffff;
-  display: block;
   text-decoration: none;
-  margin-bottom: 80px;
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
   text-align: center;
+}
+
+.session__form_link:hover {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 @media screen and (max-width: 450px) {
@@ -100,8 +113,11 @@
     line-height: 19px;
   }
 
+  .session__content_form_link {
+    padding-bottom: 42px;
+  }
+
   .session__form_link {
-    margin-bottom: 42px;
     font-size: 12px;
     line-height: 15px;
   }
