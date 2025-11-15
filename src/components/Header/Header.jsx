@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import LogoAround from '../../assets/images/Logo.svg';
+import HamburgerMenu from './HamburgerMenu/HamburgerMenu';
 
 export default function Header({ link, text, userEmail, onSignOut }) {
   if (link && text)
@@ -35,6 +36,7 @@ export default function Header({ link, text, userEmail, onSignOut }) {
             </Link>
           </div>
         </div>
+        <HamburgerMenu userEmail={userEmail} onSignOut={onSignOut} />
       </div>
     </header>
   );
