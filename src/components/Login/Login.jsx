@@ -50,14 +50,8 @@ export default function Login({
         }
       })
       .catch(() => {
-        onOpenPopup({
-          children: (
-            <InfoTooltip
-              isSuccess={false}
-              message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
-            />
-          ),
-        });
+        setIsLoggedIn(false);
+        infoTooltipError();
       });
   }
 
