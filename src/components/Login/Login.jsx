@@ -7,6 +7,7 @@ import Popup from '../Main/components/Popup/Popup.jsx';
 import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 import * as auth from '../../utils/auth.js';
 import { setToken } from '../../utils/token.js';
+import { validateEmail, validatePassword } from '../../utils/validation.js';
 
 export default function Login({
   popup,
@@ -18,6 +19,19 @@ export default function Login({
   const { setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [emailMessageError, setEmailMessageError] = useState('');
+  const [passwordMessageError, setPasswordMessageError] = useState('');
+
+  function infoTooltipError() {
+    return onOpenPopup({
+      children: (
+        <InfoTooltip
+          isSuccess={false}
+          message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
+        />
+      ),
+    });
+  }
 
   async function handleLogin({ email, password }) {
     if (!email || !password) {
@@ -48,6 +62,8 @@ export default function Login({
   }
 
   function handleChange(e) {
+    setEmailMessageError('');
+    setPasswordMessageError('');
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -57,15 +73,28 @@ export default function Login({
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!data.email || !data.password)
-      onOpenPopup({
-        children: (
-          <InfoTooltip
-            isSuccess={false}
-            message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
-          />
-        ),
-      });
+    const emailValidation = validateEmail(data.email);
+    const passwordValidation = validatePassword(data.password);
+    const passwordError =
+      'La contraseña debe tener entre 8 y 16 caracteres con al menos un dígito, una minúscula y una mayúscula.';
+    if (!emailValidation && !passwordValidation) {
+      setEmailMessageError('Email inválido');
+      setPasswordMessageError(passwordError);
+      infoTooltipError();
+      return;
+    }
+
+    if (!emailValidation) {
+      setEmailMessageError('Email inválido');
+      infoTooltipError();
+      return;
+    }
+
+    if (!passwordValidation) {
+      setPasswordMessageError(passwordError);
+      infoTooltipError();
+      return;
+    }
     handleLogin(data);
   }
 
@@ -74,7 +103,7 @@ export default function Login({
       <form className='session__form' onSubmit={handleSubmit} noValidate>
         <legend className='session__form_title'>Inicia sesión</legend>
         <input
-          className='session__form_field session__form_field-email'
+          className='session__form_field'
           id='email'
           name='email'
           type='email'
@@ -83,16 +112,24 @@ export default function Login({
           placeholder='Correo electrónico'
           required
         />
+        <span className='email-input-error form__field-error'>
+          {emailMessageError}
+        </span>
         <input
-          className='session__form_field session__form_field-password'
+          className='session__form_field'
           id='password'
           name='password'
           type='password'
+          minLength='8'
+          maxLength='16'
           value={data.password}
           onChange={handleChange}
           placeholder='Contraseña'
           required
         />
+        <span className='password-input-error form__field-error'>
+          {passwordMessageError}
+        </span>
         <button className='session__form_button' type='submit'>
           Inicia sesión
         </button>

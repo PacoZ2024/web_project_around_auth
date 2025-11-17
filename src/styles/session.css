@@ -34,14 +34,6 @@
   outline: none;
 }
 
-.session__form_field-email {
-  margin: 0 0 30px;
-}
-
-.session__form_field-password {
-  margin: 0 0 216px;
-}
-
 .session__form_button {
   border: 0;
   padding: 0;
@@ -99,10 +91,6 @@
     max-width: 260px;
     font-weight: 400;
     line-height: 17px;
-  }
-
-  .session__form_field-password {
-    margin: 0 0 173px;
   }
 
   .session__form_button {

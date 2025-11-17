@@ -1,7 +1,7 @@
 const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
 
-export function register(email, password) {
-  return fetch(`${BASE_URL}/signup`, {
+export async function register(email, password) {
+  return await fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -16,8 +16,8 @@ export function register(email, password) {
   });
 }
 
-export function authorize(email, password) {
-  return fetch(`${BASE_URL}/signin`, {
+export async function authorize(email, password) {
+  return await fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -30,14 +30,14 @@ export function authorize(email, password) {
       ? Promise.reject('No se ha proporcionado uno o más campos')
       : res.status === 401
       ? Promise.reject(
-          'no se ha encontrado al usuario con el correo electrónico especificado'
+          'No se ha encontrado al usuario con el correo electrónico especificado'
         )
       : Promise.reject(`Error: ${res.status}`);
   });
 }
 
-export function checkToken(token) {
-  return fetch(`${BASE_URL}/users/me`, {
+export async function checkToken(token) {
+  return await fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -10,11 +10,11 @@ export default function ProtectedRoute({ children, anonymous = false }) {
   const { isLoggedIn } = useContext(CurrentUserContext);
 
   if (anonymous && isLoggedIn) {
-    return <Navigate to={from} />;
+    return <Navigate to={from} replace />;
   }
 
   if (!anonymous && !isLoggedIn) {
-    return <Navigate to='/signin' state={{ from: location }} />;
+    return <Navigate to='/signin' state={{ from: location }} replace />;
   }
 
   return children;

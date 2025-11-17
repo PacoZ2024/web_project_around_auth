@@ -17,7 +17,7 @@ import * as auth from '../utils/auth.js';
 export default function App() {
   const [cards, setCards] = useState([]);
   const [popup, setPopup] = useState(null);
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
@@ -27,6 +27,8 @@ export default function App() {
     removeToken();
     setIsLoggedIn(false);
     setUserEmail('');
+    setCurrentUser({});
+    setCards([]);
     navigate('/signin');
   }
 
@@ -132,10 +134,11 @@ export default function App() {
         })
         .catch((err) => {
           removeToken();
+          setIsLoggedIn(false);
           console.log('Token inválido:', err);
         });
     })();
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     (async () => {

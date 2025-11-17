@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Popup from '../Main/components/Popup/Popup';
 import * as auth from '../../utils/auth.js';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { validateEmail, validatePassword } from '../../utils/validation.js';
 
 export default function Register({
   popup,
@@ -12,11 +13,29 @@ export default function Register({
 }) {
   const [data, setData] = useState({ email: '', password: '' });
   const [isSuccess, setIsSuccess] = useState(false);
+  const [emailMessageError, setEmailMessageError] = useState('');
+  const [passwordMessageError, setPasswordMessageError] = useState('');
 
-  function infoTooltip(isSuccess, message) {
-    return {
-      children: <InfoTooltip isSuccess={isSuccess} message={message} />,
-    };
+  function infoTooltipSuccess() {
+    return onOpenPopup({
+      children: (
+        <InfoTooltip
+          isSuccess={true}
+          message={'¡Correcto! Ya estás registrado.'}
+        />
+      ),
+    });
+  }
+
+  function infoTooltipError() {
+    return onOpenPopup({
+      children: (
+        <InfoTooltip
+          isSuccess={false}
+          message={'Uy, algo salió mal. Por favor, inténtalo de nuevo.'}
+        />
+      ),
+    });
   }
 
   async function handleRegister({ email, password }) {
@@ -24,23 +43,20 @@ export default function Register({
       .register(email, password)
       .then(() => {
         setIsSuccess(true);
-        onOpenPopup(infoTooltip(true, '¡Correcto! Ya estás registrado.'));
+        infoTooltipSuccess();
         setTimeout(() => {
           onClosePopupRegister();
         }, 5000);
       })
       .catch(() => {
         setIsSuccess(false);
-        onOpenPopup(
-          infoTooltip(
-            false,
-            'Uy, algo salió mal. Por favor, inténtalo de nuevo.'
-          )
-        );
+        infoTooltipError();
       });
   }
 
   function handleChange(e) {
+    setEmailMessageError('');
+    setPasswordMessageError('');
     const { name, value } = e.target;
     setData((prevData) => ({
       ...prevData,
@@ -50,6 +66,30 @@ export default function Register({
 
   function handleSubmit(e) {
     e.preventDefault();
+    const emailValidation = validateEmail(data.email);
+    const passwordValidation = validatePassword(data.password);
+    const passwordError =
+      'La contraseña debe tener entre 8 y 16 caracteres con al menos un dígito, una minúscula y una mayúscula.';
+
+    if (!emailValidation && !passwordValidation) {
+      setEmailMessageError('Email inválido');
+      setPasswordMessageError(passwordError);
+      infoTooltipError();
+      return;
+    }
+
+    if (!emailValidation) {
+      setEmailMessageError('Email inválido');
+      infoTooltipError();
+      return;
+    }
+
+    if (!passwordValidation) {
+      setPasswordMessageError(passwordError);
+      infoTooltipError();
+      return;
+    }
+
     handleRegister(data);
   }
 
@@ -58,7 +98,7 @@ export default function Register({
       <form className='session__form' onSubmit={handleSubmit} noValidate>
         <legend className='session__form_title'>Regístrate</legend>
         <input
-          className='session__form_field session__form_field-email'
+          className='session__form_field'
           id='email'
           name='email'
           type='email'
@@ -67,16 +107,24 @@ export default function Register({
           placeholder='Correo electrónico'
           required
         />
+        <span className='email-input-error form__field-error'>
+          {emailMessageError}
+        </span>
         <input
-          className='session__form_field session__form_field-password'
+          className='session__form_field'
           id='password'
           name='password'
           type='password'
+          minLength='8'
+          maxLength='16'
           value={data.password}
           onChange={handleChange}
           placeholder='Contraseña'
           required
         />
+        <span className='password-input-error form__field-error'>
+          {passwordMessageError}
+        </span>
         <button className='session__form_button' type='submit'>
           Regístrate
         </button>
