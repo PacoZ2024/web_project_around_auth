@@ -49,7 +49,8 @@ export default function Login({
           navigate(redirectPath);
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
         setIsLoggedIn(false);
         infoTooltipError();
       });

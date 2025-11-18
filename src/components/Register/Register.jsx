@@ -48,7 +48,8 @@ export default function Register({
           onClosePopupRegister();
         }, 5000);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
         setIsSuccess(false);
         infoTooltipError();
       });
