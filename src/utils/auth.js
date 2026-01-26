@@ -1,4 +1,7 @@
-const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
+const BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.pacosclub.mooo.com'
+    : 'http://localhost:3000';
 
 export async function register(email, password) {
   return await fetch(`${BASE_URL}/signup`, {
@@ -11,8 +14,8 @@ export async function register(email, password) {
     return res.ok
       ? res.json()
       : res.status === 400
-      ? Promise.reject('Uno de los campos se rellenó de forma incorrecta')
-      : Promise.reject(`Error: ${res.status}`);
+        ? Promise.reject('Uno de los campos se rellenó de forma incorrecta')
+        : Promise.reject(`Error: ${res.status}`);
   });
 }
 
@@ -27,12 +30,12 @@ export async function authorize(email, password) {
     return res.ok
       ? res.json()
       : res.status === 400
-      ? Promise.reject('No se ha proporcionado uno o más campos')
-      : res.status === 401
-      ? Promise.reject(
-          'No se ha encontrado al usuario con el correo electrónico especificado'
-        )
-      : Promise.reject(`Error: ${res.status}`);
+        ? Promise.reject('No se ha proporcionado uno o más campos')
+        : res.status === 401
+          ? Promise.reject(
+              'No se ha encontrado al usuario con el correo electrónico especificado',
+            )
+          : Promise.reject(`Error: ${res.status}`);
   });
 }
 
@@ -47,11 +50,11 @@ export async function checkToken(token) {
     return res.ok
       ? res.json()
       : res.status === 400
-      ? Promise.reject(
-          'Token no proporcionado o proporcionado en el formato incorrecto'
-        )
-      : res.status === 401
-      ? Promise.reject('El token provisto es inválido')
-      : Promise.reject(`Error: ${res.status}`);
+        ? Promise.reject(
+            'Token no proporcionado o proporcionado en el formato incorrecto',
+          )
+        : res.status === 401
+          ? Promise.reject('El token provisto es inválido')
+          : Promise.reject(`Error: ${res.status}`);
   });
 }

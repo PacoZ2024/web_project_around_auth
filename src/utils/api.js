@@ -1,3 +1,5 @@
+import { getToken } from './token';
+
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -53,10 +55,13 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://around-api.es.tripleten-services.com/v1/',
+  baseUrl:
+    process.env.NODE_ENV === 'production'
+      ? 'https://api.pacosclub.mooo.com'
+      : 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'c7ddeb73-151f-41a7-9f67-d93995416067',
+    Authorization: `Bearer ${getToken()}`,
   },
 });
 

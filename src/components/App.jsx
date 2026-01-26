@@ -74,8 +74,8 @@ export default function App() {
         .then((newCard) => {
           setCards((state) =>
             state.map((currentCard) =>
-              currentCard._id === card._id ? newCard : currentCard
-            )
+              currentCard._id === card._id ? newCard : currentCard,
+            ),
           );
         })
         .catch((err) => console.log(err));
@@ -85,8 +85,8 @@ export default function App() {
         .then((newCard) => {
           setCards((state) =>
             state.map((currentCard) =>
-              currentCard._id === card._id ? newCard : currentCard
-            )
+              currentCard._id === card._id ? newCard : currentCard,
+            ),
           );
         })
         .catch((err) => console.log(err));
@@ -100,7 +100,7 @@ export default function App() {
         setCards((state) =>
           state.filter((currentCard) => {
             return currentCard._id != card._id;
-          })
+          }),
         );
         console.log(resp.message);
         handleClosePopup();
@@ -119,15 +119,15 @@ export default function App() {
   }
 
   useEffect(() => {
-    const jwt = getToken();
+    const token = getToken();
 
-    if (!jwt) {
+    if (!token) {
       return;
     }
 
     (async () => {
       await auth
-        .checkToken(jwt)
+        .checkToken(token)
         .then(({ data }) => {
           setIsLoggedIn(true);
           setUserEmail(data.email);
