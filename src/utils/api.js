@@ -57,8 +57,8 @@ class Api {
 const api = new Api({
   baseUrl:
     process.env.NODE_ENV === 'production'
-      ? 'https://api.pacosclub.mooo.com'
-      : 'http://localhost:3000',
+      ? 'https://api.pacosclub.mooo.com/'
+      : 'http://localhost:3000/',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${getToken()}`,
