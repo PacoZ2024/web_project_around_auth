@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CurrentUserContext } from '../../../../contexts/CurrentUserContext.js';
 import DeleteImageButton from '../../../../assets/images/Delete_button.svg';
 import LikeButton from '../../../../assets/images/Like.svg';
 import ImagePopup from '../Popup/image/ImagePopup.jsx';
@@ -7,8 +8,9 @@ import Popup from '../Popup/Popup.jsx';
 
 export default function Card(props) {
   const [popup, setPopup] = useState(null);
-  const { name, link, isLiked } = props.card;
-  const [liked, setLiked] = useState(isLiked);
+  const { currentUser } = useContext(CurrentUserContext);
+  const { name, link, likes } = props.card;
+  const [liked, setLiked] = useState(likes.includes(currentUser._id));
   const imageComponent = { children: <ImagePopup card={props.card} /> };
   const confirmationDelete = {
     children: <WithConfirmation card={props.card} />,

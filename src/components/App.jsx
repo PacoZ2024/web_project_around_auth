@@ -69,7 +69,7 @@ export default function App() {
   }
 
   async function handleCardLike(card) {
-    const isLiked = card.isLiked;
+    const isLiked = card.likes.includes(currentUser._id);
 
     if (isLiked) {
       await api
