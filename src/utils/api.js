@@ -1,5 +1,3 @@
-import { getToken } from './token';
-
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -16,6 +14,13 @@ class Api {
       headers: this._headers,
       body: JSON.stringify(body),
     }).then((res) => this._checkResponse(res));
+  }
+
+  addAuthorizationToHeader(token) {
+    this._headers = {
+      ...this._headers,
+      Authorization: `Bearer ${token}`,
+    };
   }
 
   getInitialCards() {
@@ -61,7 +66,6 @@ const api = new Api({
       : 'http://localhost:3000/',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`,
   },
 });
 

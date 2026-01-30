@@ -11,7 +11,10 @@ import Register from './Register/Register.jsx';
 import Login from './Login/Login.jsx';
 
 import { api } from '../utils/api.js';
-import { getToken, removeToken } from '../utils/token.js';
+import {
+  getTokenLocalStorage,
+  removeTokenLocalStorage,
+} from '../utils/token.js';
 import * as auth from '../utils/auth.js';
 
 export default function App() {
@@ -24,7 +27,7 @@ export default function App() {
   const navigate = useNavigate();
 
   function handleSignOut() {
-    removeToken();
+    removeTokenLocalStorage();
     setIsLoggedIn(false);
     setUserEmail('');
     setCurrentUser({});
@@ -119,7 +122,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    const token = getToken();
+    const token = getTokenLocalStorage();
 
     if (!token) {
       return;
@@ -128,12 +131,13 @@ export default function App() {
     (async () => {
       await auth
         .checkToken(token)
-        .then(({ data }) => {
+        .then((data) => {
+          api.addAuthorizationToHeader(token);
           setIsLoggedIn(true);
           setUserEmail(data.email);
         })
         .catch((err) => {
-          removeToken();
+          removeTokenLocalStorage();
           setIsLoggedIn(false);
           console.log('Token inválido:', err);
         });
@@ -141,26 +145,28 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      await api
-        .getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch((err) => console.log(err));
-    })();
-  }, []);
+    if (isLoggedIn)
+      (async () => {
+        await api
+          .getUserInfo()
+          .then((data) => {
+            setCurrentUser(data);
+          })
+          .catch((err) => console.log(err));
+      })();
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    (async () => {
-      await api
-        .getInitialCards()
-        .then((data) => {
-          setCards(data);
-        })
-        .catch((err) => console.log(err));
-    })();
-  }, []);
+    if (isLoggedIn)
+      (async () => {
+        await api
+          .getInitialCards()
+          .then((data) => {
+            setCards(data);
+          })
+          .catch((err) => console.log(err));
+      })();
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider

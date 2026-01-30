@@ -1,13 +1,13 @@
 const TOKEN_KEY = 'token';
 
-export function setToken(token) {
+export function setTokenLocalStorage(token) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
-export function getToken() {
+export function getTokenLocalStorage() {
   return localStorage.getItem(TOKEN_KEY);
 }
 
-export function removeToken() {
+export function removeTokenLocalStorage() {
   localStorage.removeItem(TOKEN_KEY);
 }

@@ -6,8 +6,9 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import Popup from '../Main/components/Popup/Popup.jsx';
 import InfoTooltip from '../InfoTooltip/InfoTooltip.jsx';
 import * as auth from '../../utils/auth.js';
-import { setToken } from '../../utils/token.js';
+import { setTokenLocalStorage } from '../../utils/token.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
+import { api } from '../../utils/api.js';
 
 export default function Login({
   popup,
@@ -42,7 +43,8 @@ export default function Login({
       .authorize(email, password)
       .then((data) => {
         if (data.token) {
-          setToken(data.token);
+          api.addAuthorizationToHeader(data.token);
+          setTokenLocalStorage(data.token);
           setUserEmail(email);
           setIsLoggedIn(true);
           const redirectPath = location.state?.from?.pathname || '/';
