@@ -1,7 +1,7 @@
+import isEmail from 'validator/lib/isEmail';
+
 export function validateEmail(email) {
-  const emailRegex =
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-  return emailRegex.test(email);
+  return isEmail(email);
 }
 
 export function validatePassword(password) {
