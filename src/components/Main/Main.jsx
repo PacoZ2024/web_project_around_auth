@@ -15,10 +15,35 @@ export default function Main(props) {
   const editAvatarPopup = { children: <EditAvatar /> };
   const { currentUser } = useContext(CurrentUserContext);
 
+  function handleOpenEditAvatarPopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      props.onOpenPopup(editAvatarPopup);
+    }
+  }
+
+  function handleOpenEditInfoPopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      props.onOpenPopup(editProfilePopup);
+    }
+  }
+
+  function handleOpenAddNewCardPopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      props.onOpenPopup(newCardPopup);
+    }
+  }
+
   return (
     <main className='content'>
       <section className='content__profile'>
-        <div className='content__image-profile-container'>
+        <div
+          className='content__image-profile-container'
+          tabIndex={0}
+          onKeyDown={handleOpenEditAvatarPopup}
+        >
           <img
             className='content__avatar-image'
             alt='Imagen de perfil'
@@ -42,6 +67,8 @@ export default function Main(props) {
             <h1 className='content__profile-name'>{currentUser.name}</h1>
             <div
               className='content__profile-edit-button'
+              tabIndex={0}
+              onKeyDown={handleOpenEditInfoPopup}
               onClick={() => {
                 props.onOpenPopup(editProfilePopup);
               }}
@@ -57,6 +84,8 @@ export default function Main(props) {
         </div>
         <div
           className='content__new-place-add-button'
+          tabIndex={0}
+          onKeyDown={handleOpenAddNewCardPopup}
           onClick={() => {
             props.onOpenPopup(newCardPopup);
           }}

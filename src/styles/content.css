@@ -21,6 +21,12 @@
   align-items: center;
 }
 
+.content__image-profile-container:focus-visible {
+  outline: 2px solid #007bff;
+  border-radius: 100%;
+  outline-offset: 2px;
+}
+
 .content__avatar-image {
   clip-path: circle(60px);
   max-height: 120px;
@@ -95,6 +101,12 @@
   opacity: 0.6;
 }
 
+.content__profile-edit-button:focus-visible {
+  outline: 2px solid #007bff;
+  border: #007bff;
+  border-radius: 5px;
+}
+
 .content__edit-profile-button-label {
   width: 10px;
   height: 10px;
@@ -127,6 +139,12 @@
   opacity: 0.6;
 }
 
+.content__new-place-add-button:focus-visible {
+  outline: 2px solid #007bff;
+  border: #007bff;
+  border-radius: 5px;
+}
+
 .content__add-new-place-button-label {
   width: 22px;
   height: 22px;
@@ -151,6 +169,12 @@
   border-radius: 10px 10px 0px 0px;
 }
 
+.content__image-card:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 3px;
+  border-radius: 5px;
+}
+
 .content__image {
   width: 282px;
   height: 282px;
@@ -169,6 +193,12 @@
   position: absolute;
   top: 18px;
   right: 15px;
+}
+
+.content__delete-button:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 3px;
+  border-radius: 5px;
 }
 
 .content__delete-button-label {
@@ -207,6 +237,12 @@
   height: 19px;
   width: 19px;
   margin-right: 18px;
+}
+
+.content__like-button:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 3px;
+  border-radius: 5px;
 }
 
 .content__like-button-label {

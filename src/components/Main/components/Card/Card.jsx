@@ -29,9 +29,34 @@ export default function Card(props) {
     liked ? setLiked(false) : setLiked(true);
   }
 
+  function handleOpenConfirmationDeletePopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleOpenPopup(confirmationDelete);
+    }
+  }
+
+  function handleChangeLikeButton(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleLikeClick();
+    }
+  }
+
+  function handleOpenImagePopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleOpenPopup(imageComponent);
+    }
+  }
+
   return (
     <div className='content__card'>
-      <div className='content__image-card'>
+      <div
+        className='content__image-card'
+        tabIndex={0}
+        onKeyDown={handleOpenImagePopup}
+      >
         <img
           className='content__image'
           src={link}
@@ -41,7 +66,11 @@ export default function Card(props) {
           }}
         />
       </div>
-      <div className='content__delete-button'>
+      <div
+        className='content__delete-button'
+        tabIndex={0}
+        onKeyDown={handleOpenConfirmationDeletePopup}
+      >
         <img
           className='content__delete-button-label'
           src={DeleteImageButton}
@@ -53,7 +82,11 @@ export default function Card(props) {
       </div>
       <div className='content__image-tag'>
         <p className='content__image-title'>{name}</p>
-        <div className='content__like-button'>
+        <div
+          className='content__like-button'
+          tabIndex={0}
+          onKeyDown={handleChangeLikeButton}
+        >
           <img
             className={
               liked
