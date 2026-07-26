@@ -7,33 +7,34 @@ export default function Popup(props) {
 
   useEffect(() => {
     const previousFocus = document.activeElement;
-
     const focusableSelectors =
       'a[href], area[href], input, select, textarea, button, iframe, object, embed, [tabindex="0"], [contenteditable]';
-
     const popupElement = popupRef.current;
+
     if (popupElement) {
       const allElements = popupElement.querySelectorAll(focusableSelectors);
       const firstEnabled = Array.from(allElements).find((el) => !el.disabled);
       if (firstEnabled) firstEnabled.focus();
     }
 
-    const handleKeyDown = (e) => {
-      if (e.key !== 'Tab') return;
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
 
+      if (e.key !== 'Tab') return;
       if (!popupRef.current) return;
 
       const allElements = popupRef.current.querySelectorAll(focusableSelectors);
-
-      const activeFocusableElements = Array.from(allElements).filter(
+      const activeElements = Array.from(allElements).filter(
         (el) => !el.disabled && el.tabIndex !== -1,
       );
 
-      if (activeFocusableElements.length === 0) return;
+      if (activeElements.length === 0) return;
 
-      const firstElement = activeFocusableElements[0];
-      const lastElement =
-        activeFocusableElements[activeFocusableElements.length - 1];
+      const firstElement = activeElements[0];
+      const lastElement = activeElements[activeElements.length - 1];
 
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {
@@ -46,15 +47,23 @@ export default function Popup(props) {
           e.preventDefault();
         }
       }
-    };
+    }
+
+    function handleClickOutside(e) {
+      if (popupRef.current && !popupRef.current.contains(e.target)) {
+        onClose();
+      }
+    }
 
     window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
       if (previousFocus) previousFocus.focus();
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <div className='popup'>
