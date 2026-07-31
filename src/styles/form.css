@@ -135,7 +135,12 @@
 
 .password-input-error {
   display: block;
-  margin: 0 0 186px;
+  margin: 0;
+}
+
+.authorization-error {
+  display: block;
+  margin: 0 0 156px;
 }
 
 .about-me-input-error {
@@ -254,6 +259,11 @@
     width: 358px;
   }
 
+  .authorization-error {
+    width: 358px;
+    margin: 0 0 141px;
+  }
+
   .about-me-input-error {
     margin: 0 0 15px;
   }
@@ -276,6 +286,10 @@
   }
 
   .password-input-error {
+    width: 260px;
+  }
+
+  .authorization-error {
     width: 260px;
   }
 }

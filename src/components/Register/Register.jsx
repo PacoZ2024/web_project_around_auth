@@ -15,6 +15,8 @@ export default function Register({
   const [isSuccess, setIsSuccess] = useState(false);
   const [emailMessageError, setEmailMessageError] = useState('');
   const [passwordMessageError, setPasswordMessageError] = useState('');
+  const [authorizationMessageError, setAuthorizationMessageError] =
+    useState('');
 
   function infoTooltipSuccess() {
     return onOpenPopup({
@@ -52,10 +54,14 @@ export default function Register({
         console.error(err);
         setIsSuccess(false);
         infoTooltipError();
+        setAuthorizationMessageError(
+          'Hubo un problema técnico temporal. Por favor, vuelve a intentarlo en unos minutos.',
+        );
       });
   }
 
   function handleChange(e) {
+    setAuthorizationMessageError('');
     setEmailMessageError('');
     setPasswordMessageError('');
     const { name, value } = e.target;
@@ -73,14 +79,14 @@ export default function Register({
       'La contraseña debe tener entre 8 y 16 caracteres con al menos un dígito, una minúscula y una mayúscula.';
 
     if (!emailValidation && !passwordValidation) {
-      setEmailMessageError('Email inválido');
+      setEmailMessageError('Email inválido.');
       setPasswordMessageError(passwordError);
       infoTooltipError();
       return;
     }
 
     if (!emailValidation) {
-      setEmailMessageError('Email inválido');
+      setEmailMessageError('Email inválido.');
       infoTooltipError();
       return;
     }
@@ -125,6 +131,9 @@ export default function Register({
         />
         <span className='password-input-error form__field-error'>
           {passwordMessageError}
+        </span>
+        <span className='authorization-error form__field-error'>
+          {authorizationMessageError}
         </span>
         <button className='session__form_button' type='submit'>
           Regístrate
