@@ -65,6 +65,13 @@ export default function Popup(props) {
     };
   }, [onClose]);
 
+  function handleClosePopup(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onClose();
+    }
+  }
+
   return (
     <div className='popup'>
       <div
@@ -73,7 +80,12 @@ export default function Popup(props) {
         role='dialog'
         aria-modal='true'
       >
-        <div className='form__close-button' onClick={onClose}>
+        <div
+          className='form__close-button'
+          tabIndex={0}
+          onKeyDown={handleClosePopup}
+          onClick={onClose}
+        >
           <img
             className='form__label-close-button'
             src={CloseButton}
