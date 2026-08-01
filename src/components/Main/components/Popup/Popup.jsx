@@ -36,6 +36,12 @@ export default function Popup(props) {
       const firstElement = activeElements[0];
       const lastElement = activeElements[activeElements.length - 1];
 
+      if (activeElements.length === 1) {
+        e.preventDefault();
+        firstElement.focus();
+        return;
+      }
+
       if (e.shiftKey) {
         if (document.activeElement === firstElement) {
           lastElement.focus();
