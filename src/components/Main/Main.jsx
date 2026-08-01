@@ -43,6 +43,9 @@ export default function Main(props) {
           className='content__image-profile-container'
           tabIndex={0}
           onKeyDown={handleOpenEditAvatarPopup}
+          onClick={() => {
+            props.onOpenPopup(editAvatarPopup);
+          }}
         >
           <img
             className='content__avatar-image'

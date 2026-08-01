@@ -43,12 +43,6 @@
   opacity: 0;
 }
 
-.content__icon-edit-image-profile-container:hover {
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.8);
-  opacity: 1;
-}
-
 .content__icon-edit-image-profile {
   position: absolute;
   top: 47px;
@@ -264,6 +258,14 @@
 
 .content__like-button-label-active:hover {
   cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .content__icon-edit-image-profile-container:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+  }
 }
 
 @media screen and (max-width: 880px) {
