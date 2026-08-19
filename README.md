@@ -27,8 +27,6 @@
 
 ### 💻 Instalación y Configuración Local
 
-Para ejecutar el proyecto completo en tu máquina local, sigue las instrucciones:
-
 ### 1. Clonar el repositorio
 
 ```bash
