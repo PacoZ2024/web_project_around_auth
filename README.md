@@ -1,10 +1,10 @@
-# 🇺🇸 Around The U.S. - Frontend
+# ![Logo US](./public/favicon.ico) Around The U.S. - Frontend
 
 > Una aplicación web interactiva que permite a los usuarios registrarse, iniciar sesión, gestionar su información de perfil y compartir imágenes de lugares emblemáticos de los Estados Unidos, incluyendo funciones interactivas como dar "me gusta" y eliminar tarjetas fotográficas. El proyecto está completamente desacoplado en una arquitectura de Frontend y Backend.
 
-1. [![Proyecto desplegado](https://img.shields.io/badge/Proyecto%20desplegado-8A2BE2)](https://www.around-the-us-2025.mooo.com/signin)
+[![Proyecto desplegado](https://img.shields.io/badge/Proyecto%20desplegado-8A2BE2)](https://www.around-the-us-2025.mooo.com/signin)
 
-2. [![Repositorio Backend](https://img.shields.io/badge/Repositorio%20Backend-8A2BE2)](https://github.com/PacoZ2024/web_project_api_full)
+[![Repositorio Backend](https://img.shields.io/badge/Repositorio%20Backend-8A2BE2)](https://github.com/PacoZ2024/web_project_api_full)
 
 ---
 
@@ -49,6 +49,8 @@ Inicia el entorno de desarrollo del frontend:
 ```bash
 npm start
 ```
+
+---
 
 > [!IMPORTANT]
 > Este proyecto requiere que el servidor backend esté corriendo de manera simultánea para poder realizar inicios de sesión, registros o guardar imágenes.
