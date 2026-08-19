@@ -1,4 +1,4 @@
-# <img src="./public/favicon.ico" width="30" alt="emoji-US"> Around The U.S. - Frontend
+# <img src="./public/favicon.ico" width="25" alt="emoji-US"> Around The U.S. - Frontend
 
 > Una aplicación web interactiva que permite a los usuarios registrarse, iniciar sesión, gestionar su información de perfil y compartir imágenes de lugares emblemáticos de los Estados Unidos, incluyendo funciones interactivas como dar "me gusta" y eliminar tarjetas fotográficas. El proyecto está completamente desacoplado en una arquitectura de Frontend y Backend.
 
